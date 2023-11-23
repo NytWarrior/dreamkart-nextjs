@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react'
 
 const Footer = () => {
@@ -6,12 +7,12 @@ const Footer = () => {
             <footer className="text-gray-600 body-font">
                 <div className="container px-5 py-24 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
                     <div className="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
-                        <a href="/" className="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
+                        <Link href="/" className="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
                                 <path d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"></path>
                             </svg>
                             <span className="ml-3 text-xl">DreamKart</span>
-                        </a>
+                        </Link>
                         <p className="mt-2 text-sm text-gray-500">Live the dream!🩶🩶</p>
                     </div>
                     <div className="flex-grow flex flex-wrap md:pl-20 -mb-10 md:mt-0 mt-10 md:text-left text-center">
