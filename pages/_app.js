@@ -17,7 +17,7 @@ export default function App({ Component, pageProps }) {
       console.log(error);
       localStorage.clear();
     }
-  })
+  }, [])
 
   const saveCart = (myCart) => {
     localStorage.setItem("cart", JSON.stringify(myCart));
