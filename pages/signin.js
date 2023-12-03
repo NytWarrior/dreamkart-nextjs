@@ -1,8 +1,10 @@
+import { useRouter } from 'next/router';
 import React, { useState } from 'react'
 
 const signin = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const router = useRouter();
 
     const handleChange = (e) => {
         if (e.target.name === 'email') {
@@ -24,9 +26,9 @@ const signin = () => {
             body: JSON.stringify(data)
         })
         let response = await res.json();
-        console.log(response)
         setEmail('');
         setPassword('');
+        router.push('http://localhost:3000');
     }
     return (
         <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
