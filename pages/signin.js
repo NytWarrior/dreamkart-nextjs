@@ -28,7 +28,12 @@ const signin = () => {
         let response = await res.json();
         setEmail('');
         setPassword('');
-        router.push('http://localhost:3000');
+        if (response.success) {
+            localStorage.setItem('token', response.token);
+            setTimeout(() => {
+                router.push('http://localhost:3000');
+            }, 500);
+        }
     }
     return (
         <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
