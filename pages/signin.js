@@ -24,7 +24,7 @@ const signin = () => {
         e.preventDefault();
         const data = { email, password };
 
-        let res = await fetch('http://localhost:3000/api/signin', {
+        let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/signin`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -37,7 +37,7 @@ const signin = () => {
         if (response.success) {
             localStorage.setItem('token', response.token);
             setTimeout(() => {
-                router.push('http://localhost:3000');
+                router.push(process.env.NEXT_PUBLIC_HOST);
             }, 500);
         }
     }
