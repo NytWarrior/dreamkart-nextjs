@@ -33,7 +33,7 @@ const Navbar = ({ user, cart, addToCart, removeFromCart, clearCart, subTotal, lo
                 <div onMouseOver={() => setDropdown(true)} onMouseLeave={() => setDropdown(false)} className='flex'>
                     {dropdown && <ul className="absolute top-7 right-10 z-10 mt-9 mr-10 w-36 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <Link href={'/myaccount'}><li className='block px-4 py-2 text-sm text-gray-700'> My Account</li></Link>
-                        <Link href={'/order'}><li className='block px-4 py-2 text-sm text-gray-700'> Orders </li></Link>
+                        <Link href={'/orders'}><li className='block px-4 py-2 text-sm text-gray-700'> Orders </li></Link>
                         <li onClick={logout} className='cursor-pointer block px-4 py-2 text-sm text-gray-700'> Logout</li>
                     </ul>}
                     {user.value && <a className="inline-flex items-center px-2 bg-gray-100 border-0 focus:outline-none text-base mt-4 md:mt-0">
@@ -43,7 +43,7 @@ const Navbar = ({ user, cart, addToCart, removeFromCart, clearCart, subTotal, lo
                     </a>}
                 </div>
                 <div className='flex'>
-                    {!user.value && <Link href={'/signin'}><button class="inline-flex text-white bg-indigo-500 border-0 py-1 px-2 mx-2 my-1 focus:outline-none hover:bg-indigo-600 rounded">Sign In</button></Link>}
+                    {!user.value && <Link href={'/signin'}><button className="inline-flex text-white bg-indigo-500 border-0 py-1 px-2 mx-2 my-1 focus:outline-none hover:bg-indigo-600 rounded">Sign In</button></Link>}
                     <a onClick={toggleCart} className="inline-flex items-center bg-gray-100 border-0 focus:outline-none text-base mt-4 md:mt-0">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full hover:bg-indigo-600" viewBox="0 0 24 24">
                             <path d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"></path>
