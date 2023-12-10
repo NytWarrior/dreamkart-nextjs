@@ -1,9 +1,94 @@
 import Link from 'next/link';
-import React from 'react'
+import React from 'react';
 import { AiFillMinusCircle, AiFillPlusCircle } from 'react-icons/ai';
-import { BsFillBagCheckFill } from 'react-icons/bs'
+import { BsFillBagCheckFill } from 'react-icons/bs';
 
 const checkout = ({ cart, subTotal, addToCart, removeFromCart }) => {
+
+    const initializeRazorpaySDK = () => {
+
+        return new Promise((resolve) => {
+
+            const script = document.createElement('script');
+            script.src = "https://checkout.razorpay.com/v1/checkout.js";
+
+            script.onload = () => {
+
+                resolve(true); //handle load success event here
+            };
+
+            script.onerror = () => {
+
+                resolve(false); //handle load error event
+            };
+
+            document.body.appendChild(script);
+        })
+    }
+    const openPaymentWindow = async () => {
+
+        const res = await initializeRazorpaySDK(); //here we are calling function we just written before
+
+        if (!res) {
+            alert("Razorpay SDK Failed to load"); //you can also call any ui to show this error.
+            return; //this return stops this function from loading if SDK is not loaded
+        }
+
+        // Make API call to the serverless API
+        const data = await fetch("/api/payment", {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                //body here if required
+            }),
+        }).then((res) =>
+            res.json((response) => {
+                //
+            })
+
+        ).catch((error) => {
+            console.log(error)
+        })
+
+        //data object is the response object which has razorpay object,
+        console.log(data);//log data if required
+
+
+        var options = {
+            key: process.env.NEXT_PUBLIC_RAZORPAY_KEY,
+            name: "Your Brand Name Here",
+            currency: "INR",
+            amount: data.amount,
+            order_id: data.id,
+            description: 'Your Payment Description Here',
+            image: "https://avatars.githubusercontent.com/u/103626412?v=4",//put secure url of the logo you wish to display 
+            handler: function (response) {
+                // Validate payment at server - using webhooks is a better idea.
+
+                UpdateOrder(response.razorpay_order_id);
+            },
+            ondismiss: () => { /*handle payment window close or dismiss here */ },
+
+            prefill: {
+                name: 'Name of the Customer', //you can prefill Name of the Customer 
+                email: 'Email of the Customer', //you can prefill Email of the Customer 
+                contact: 7897897897, //Mobile Number can also be prefilled to fetch available payment accounts.
+
+            },
+            readonly: {
+
+                email: true, //edit this to allow editing of info
+                name: true,//edit this to allow editing of info
+            },
+        };
+
+        const paymentObject = new window.Razorpay(options);
+        paymentObject.open();
+    };
+
     return (
         <div className="container px-2 sm:m-auto">
             <h1 className='font-bold text-3xl my-8 text-center'>Checkout</h1>
@@ -85,7 +170,7 @@ const checkout = ({ cart, subTotal, addToCart, removeFromCart }) => {
                 <span className='font-bold'>SubTotal:{subTotal}</span>
             </div>
             <div className="mx-4">
-                <Link href={'/checkout'}><button className='flex mr-2 text-white bg-indigo-500 border-0 py-2 px-2 focus:outline-none hover:bg-indigo-600 rounded text-sm'>
+                <Link href={'/checkout'}><button onClick={openPaymentWindow} className='flex mr-2 text-white bg-indigo-500 border-0 py-2 px-2 focus:outline-none hover:bg-indigo-600 rounded text-sm'>
                     <BsFillBagCheckFill className='m-1' />Pay {subTotal}</button>
                 </Link>
             </div>
