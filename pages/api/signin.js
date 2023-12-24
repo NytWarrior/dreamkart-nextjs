@@ -7,11 +7,11 @@ const handler = async (req, res) => {
     if (req.method === 'POST') {
         try {
             let user = await User.findOne({ 'email': req.body.email });
-            const bytes = CryptoJS.AES.decrypt(user.password, 'Dream123');
+            const bytes = CryptoJS.AES.decrypt(user.password, process.env.AES_SECRET);
             const decryptPass = bytes.toString(CryptoJS.enc.Utf8);
             if (user) {
                 if (user.email === req.body.email && req.body.password === decryptPass) {
-                    var token = jwt.sign({ email: user.email, name: user.name }, 'jwtsecret', { expiresIn: '20d' })
+                    var token = jwt.sign({ email: user.email, name: user.name }, process.env.JWT_SECRET, { expiresIn: '20d' })
                     res.status(200).json({ success: true, token });
                 } else {
                     res.status(401).json({ success: false, error: 'Invalid email or password' });

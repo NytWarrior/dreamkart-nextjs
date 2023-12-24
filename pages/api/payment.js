@@ -1,7 +1,18 @@
+import Order from "@/models/Order";
 const Razorpay = require("razorpay");
 
 export default async function handler(req, res) {
     if (req.method === "POST") {
+
+        let order = new Order({
+            email: req.body.email,
+            orderId: generateReceipt(),
+            address: req.body.address,
+            amount: req.body.subTotal,
+            products: req.body.cart
+        });
+        console.log("in payment req.body", req.body);
+        await order.save();
         // Initialize Razorpay Object
         const razorpay = new Razorpay({
             key_id: process.env.NEXT_PUBLIC_RAZORPAY_KEY,
@@ -11,7 +22,7 @@ export default async function handler(req, res) {
         // Generate Payment Object
         async function generateObject() {
             const payment_capture = 1;
-            const price = 500; // Put your desired amount here
+            const price = req.body.subTotal;
             const currency = "INR"; // Put your desired currency's code
 
             const options = {
