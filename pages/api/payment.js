@@ -1,8 +1,30 @@
 import Order from "@/models/Order";
+import Product from "@/models/Product";
 const Razorpay = require("razorpay");
 
 export default async function handler(req, res) {
     if (req.method === "POST") {
+
+        //check if the cart is tampered
+        let product, sumTotal = 0;
+        let cart = req.body.cart;
+
+        for (let item in cart) {
+            console.log(item)
+            sumTotal += cart[item].price * cart[item].qty;
+            product = await Product.findOne({ slug: item });
+
+            if (product.availableQty < cart[item].qty) {
+                res.status(500).json({ error: "Some items in your cart went out of stock. Please try again!!" })
+            }
+
+            if (product.price != cart[item].price) {
+                res.status(500).json({ error: "Price of some item in your cart might changed. Please try again!!" })
+            }
+        }
+        if (sumTotal != req.body.subTotal) {
+            res.status(500).json({ error: "Price of some item in your cart might changed. Please try again!!" });
+        }
 
         let order = new Order({
             email: req.body.email,
@@ -11,7 +33,7 @@ export default async function handler(req, res) {
             amount: req.body.subTotal,
             products: req.body.cart
         });
-        console.log("in payment req.body", req.body);
+        // console.log("in payment req.body", req.body);
         await order.save();
         // Initialize Razorpay Object
         const razorpay = new Razorpay({

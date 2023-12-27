@@ -9,7 +9,7 @@ const orderDetail = ({ order }) => {
     const products = order.products;
 
     useEffect(() => {
-        if (!localStorage.getItem('token')) {
+        if (!localStorage.getItem('myuser')) {
             router.push('/');
         }
     }, []);

@@ -21,15 +21,15 @@ export default function App({ Component, pageProps }) {
       console.log(error);
       localStorage.clear();
     }
-    const token = localStorage.getItem('token');
-    if (token) {
-      setUser({ value: token });
+    const myuser = JSON.parse(localStorage.getItem('myuser'));
+    if (myuser) {
+      setUser({ value: myuser.token, email: myuser.email });
     }
     setKey(Math.random());
   }, [router.query])
 
   const logout = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem('myuser');
     setUser({ value: null });
     setKey(Math.random());
     router.push('/');

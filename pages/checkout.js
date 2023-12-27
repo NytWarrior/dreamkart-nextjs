@@ -1,9 +1,9 @@
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiFillMinusCircle, AiFillPlusCircle } from 'react-icons/ai';
 import { BsFillBagCheckFill } from 'react-icons/bs';
 
-const checkout = ({ cart, subTotal, addToCart, removeFromCart }) => {
+const checkout = ({ cart, clearCart, subTotal, addToCart, removeFromCart }) => {
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -12,6 +12,15 @@ const checkout = ({ cart, subTotal, addToCart, removeFromCart }) => {
     const [pincode, setPincode] = useState('');
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
+    const [user, setUser] = useState({ value: null })
+
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem('myuser'));
+        if (user) {
+            setUser(user)
+            setEmail(user.email)
+        }
+    }, []);
 
     const handleChange = (e) => {
         if (e.target.name == 'name') {
@@ -52,78 +61,68 @@ const checkout = ({ cart, subTotal, addToCart, removeFromCart }) => {
         })
     }
     const openPaymentWindow = async () => {
+        const sdkLoaded = await initializeRazorpaySDK();
 
-        const res = await initializeRazorpaySDK(); //here we are calling function we just written before
-
-        if (!res) {
-            alert("Razorpay SDK Failed to load"); //you can also call any ui to show this error.
-            return; //this return stops this function from loading if SDK is not loaded
+        if (!sdkLoaded) {
+            alert("Razorpay SDK Failed to load");
+            return;
         }
 
-        // Make API call to the serverless API
-        const data = await fetch("/api/payment", {
-            method: "POST",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                //body here if required
-                email: email,
-                address: address,
-                subTotal: subTotal,
-                cart: cart,
-            }),
-        }).then((res) =>
-            res.json((response) => {
-                //
-                console.log("transaction response 80", response);
-            })
+        try {
+            const response = await fetch("/api/payment", {
+                method: "POST",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: email,
+                    address: address,
+                    subTotal: subTotal,
+                    cart: cart,
+                }),
+            });
 
-        ).catch((error) => {
-            console.log(error)
-        })
+            if (!response.ok) {
+                const errorData = await response.json();
+                clearCart();
+                throw new Error(errorData.error);
+            }
 
-        //data object is the response object which has razorpay object,
-        console.log("data in checkout 87", data);//log data if required
+            const data = await response.json();
 
+            var options = {
+                key: process.env.NEXT_PUBLIC_RAZORPAY_KEY,
+                name: "DreamKart",
+                currency: "INR",
+                amount: data.amount,
+                order_id: data.id,
+                description: 'Your Payment Description Here',
+                image: "https://avatars.githubusercontent.com/u/103626412?v=4",
+                handler: function (response) {
+                    console.log("Payment Success", response);
+                    alert("Payment Successful!");
+                },
+                ondismiss: () => {
+                    console.log("Payment window closed");
+                },
+                prefill: {
+                    name: name,
+                    email: email,
+                    contact: phone,
+                },
+            };
 
-        var options = {
-            key: process.env.NEXT_PUBLIC_RAZORPAY_KEY,
-            name: "DreamKart",
-            currency: "INR",
-            amount: data.amount,
-            order_id: data.id,
-            description: 'Your Payment Description Here',
-            image: "https://avatars.githubusercontent.com/u/103626412?v=4",//put secure url of the logo you wish to display 
-            handler: function (response) {
-                console.log("gwfeargh", response)
-                // Validate payment at server - using webhooks is a better idea.
-                // alert(response.razorpay_payment_id);
-                // alert(response.razorpay_order_id);
-                // alert(response.razorpay_signature);
-                alert("Payment Successfull!")
-            },
-            ondismiss: () => { /*handle payment window close or dismiss here */ },
+            const paymentObject = new window.Razorpay(options);
+            paymentObject.open();
 
-            prefill: {
-                name: name,
-                email: email,
-                contact: phone,
-            },
-            // readonly: {
-
-            //     email: true, //edit this to allow editing of info
-            //     name: true,//edit this to allow editing of info
-            // },
-        };
-
-        const paymentObject = new window.Razorpay(options);
-        paymentObject.open();
-
-        paymentObject.on("payment.failed", function (response) {
-            alert("Payment failed. Please try again. Contact support for help");
-        });
+            paymentObject.on("payment.failed", function (response) {
+                alert("Payment failed. Please try again. Contact support for help");
+            });
+        } catch (error) {
+            console.error("Payment API Error:", error.message);
+            alert(error.message || "Payment failed. Please try again.");
+        }
     };
 
     return (
@@ -140,7 +139,9 @@ const checkout = ({ cart, subTotal, addToCart, removeFromCart }) => {
                 <div className="px-2 w-1/2">
                     <div className="mb-4">
                         <label htmlFor="email" className="leading-7 text-sm text-gray-600">Email</label>
-                        <input onChange={handleChange} value={email} type="text" id="email" name="email" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                        {user && user.value ? <input value={user.email} type="text" id="email" name="email" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" readOnly={true} />
+                            : <input onChange={handleChange} value={email} type="text" id="email" name="email" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                        }
                     </div>
                 </div>
             </div>
