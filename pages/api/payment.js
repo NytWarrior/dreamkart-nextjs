@@ -9,8 +9,11 @@ export default async function handler(req, res) {
         let product, sumTotal = 0;
         let cart = req.body.cart;
 
+        if (req.status.subTotal <= 0) {
+            res.status(500).json({ error: "Please build your cart and try again!!" })
+        }
         for (let item in cart) {
-            console.log(item)
+            // console.log(item)
             sumTotal += cart[item].price * cart[item].qty;
             product = await Product.findOne({ slug: item });
 
