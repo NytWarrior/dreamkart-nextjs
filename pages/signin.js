@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 const Signin = () => {
     const [email, setEmail] = useState('');
@@ -62,7 +63,7 @@ const Signin = () => {
                         <div className="flex items-center justify-between">
                             <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">Password</label>
                             <div className="text-sm">
-                                <a href="/forgot" className="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</a>
+                                <Link href="/forgot" className="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</Link>
                             </div>
                         </div>
                         <div className="mt-2">
@@ -76,7 +77,7 @@ const Signin = () => {
 
                 <p className="mt-10 text-center text-sm text-gray-500">
                     Not a member?
-                    <a href="/signup" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">SignUp</a>
+                    <Link href="/signup" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">SignUp</Link>
                 </p>
             </div>
         </div>

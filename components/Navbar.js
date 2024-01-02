@@ -26,9 +26,9 @@ const Navbar = ({ user, cart, addToCart, removeFromCart, clearCart, subTotal, lo
                     <span className="ml-3 text-xl">DreamKart</span>
                 </a>
                 <nav className="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
-                    <a href="/tshirts" className="mr-5 hover:text-gray-900">Tshirts</a>
-                    <a href="/hoodies" className="mr-5 hover:text-gray-900">Hoodies</a>
-                    <a href="/mugs" className="mr-5 hover:text-gray-900">Mugs</a>
+                    <Link href="/tshirts" className="mr-5 hover:text-gray-900">Tshirts</Link>
+                    <Link href="/hoodies" className="mr-5 hover:text-gray-900">Hoodies</Link>
+                    <Link href="/mugs" className="mr-5 hover:text-gray-900">Mugs</Link>
                 </nav>
                 <div onMouseOver={() => setDropdown(true)} onMouseLeave={() => setDropdown(false)} className='flex'>
                     {dropdown && <ul className="absolute top-7 right-10 z-10 mt-9 mr-10 w-36 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
