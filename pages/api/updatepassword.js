@@ -11,7 +11,6 @@ const handler = async (req, res) => {
         let dbuser = await User.findOne({ email: user.email });
         const bytes = CryptoJS.AES.decrypt(dbuser.password, process.env.AES_SECRET);
         let decryptedPass = bytes.toString(CryptoJS.enc.Utf8);
-        console.log(decryptedPass);
         if (decryptedPass == req.body.password && req.body.npassword == req.body.cpassword) {
             let dbusern = await User.findOneAndUpdate({ email: dbuser.email }, { password: CryptoJS.AES.encrypt(req.body.cpassword, process.env.AES_SECRET).toString() });
             res.status(200).json({ success: true })

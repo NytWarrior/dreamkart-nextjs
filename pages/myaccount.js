@@ -37,7 +37,6 @@ const myaccount = () => {
         })
 
         let res = await a.json();
-        console.log(res);
         setName(res.name);
         setAddress(res.address);
         setPincode(res.pincode);
@@ -82,7 +81,6 @@ const myaccount = () => {
         })
 
         let res = await a.json();
-        console.log(res);
     }
 
     const handlePasswordSubmit = async () => {

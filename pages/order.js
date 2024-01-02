@@ -4,7 +4,6 @@ import mongoose from 'mongoose';
 import Order from '@/models/Order';
 
 const orderDetail = ({ order }) => {
-    // console.log(order)
     const router = useRouter();
     const products = order.products;
 
