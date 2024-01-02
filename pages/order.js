@@ -27,7 +27,7 @@ const OrderDetail = ({ order }) => {
                         </div>
 
                         {Object.keys(products).map((key) => {
-                            return <div className="flex border-t border-gray-200 py-2">
+                            return <div key={key} className="flex border-t border-gray-200 py-2">
                                 <span className="text-gray-500">{products[key].name}({products[key].size}/{products[key].variant})</span>
                                 <span className="m-auto text-gray-900">{products[key].qty}</span>
                                 <span className="m-auto text-gray-900">₹{products[key].price}</span>
