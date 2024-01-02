@@ -10,8 +10,9 @@ const myaccount = () => {
     const [pincode, setPincode] = useState('');
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
-    const [password, setPassword] = useState();
-    const [cpassword, setCpassword] = useState();
+    const [password, setPassword] = useState('');
+    const [npassword, setNpassword] = useState('');
+    const [cpassword, setCpassword] = useState('');
     const [user, setUser] = useState({ value: null })
 
     useEffect(() => {
@@ -62,6 +63,9 @@ const myaccount = () => {
         else if (e.target.name == 'password') {
             setPassword(e.target.value);
         }
+        else if (e.target.name == 'npassword') {
+            setNpassword(e.target.value);
+        }
         else if (e.target.name == 'cpassword') {
             setCpassword(e.target.value);
         }
@@ -79,6 +83,27 @@ const myaccount = () => {
 
         let res = await a.json();
         console.log(res);
+    }
+
+    const handlePasswordSubmit = async () => {
+        let res;
+        if (npassword == cpassword) {
+            let data = { token: user.token, password, npassword, cpassword };
+            let a = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/updatepassword`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+
+            res = await a.json();
+        } else {
+            res = { success: false }
+        }
+        setPassword('');
+        setNpassword('');
+        setCpassword('');
     }
 
     return (
@@ -147,12 +172,18 @@ const myaccount = () => {
                 </div>
                 <div className="px-2 w-1/2">
                     <div className="mb-4">
-                        <label htmlFor="cpassword" className="leading-7 text-sm text-gray-600">Confirm Password</label>
+                        <label htmlFor="npassword" className="leading-7 text-sm text-gray-600">New Password</label>
+                        <input onChange={handleChange} value={npassword} type="password" id="npassword" name="npassword" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                    </div>
+                </div>
+                <div className="px-2 w-1/2">
+                    <div className="mb-4">
+                        <label htmlFor="cpassword" className="leading-7 text-sm text-gray-600">Confirm New Password</label>
                         <input onChange={handleChange} value={cpassword} type="password" id="cpassword" name="cpassword" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
                     </div>
                 </div>
             </div>
-            <button className='m-2 text-white bg-indigo-500 border-0 mb-5 py-2 px-2 focus:outline-none hover:bg-indigo-600 rounded text-sm'>Submit</button>
+            <button onClick={handlePasswordSubmit} className='m-2 text-white bg-indigo-500 border-0 mb-5 py-2 px-2 focus:outline-none hover:bg-indigo-600 rounded text-sm'>Submit</button>
         </div>
     )
 }

@@ -19,6 +19,7 @@ const checkout = ({ cart, clearCart, subTotal, addToCart, removeFromCart }) => {
         if (user) {
             setUser(user)
             setEmail(user.email)
+            fetchData(user.token)
         }
     }, []);
 
@@ -38,6 +39,24 @@ const checkout = ({ cart, clearCart, subTotal, addToCart, removeFromCart }) => {
         else if (e.target.name == 'pincode') {
             setPincode(e.target.value);
         }
+    }
+
+    const fetchData = async (token) => {
+        let data = { token: token };
+        let a = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getuser`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+
+        let res = await a.json();
+        console.log(res);
+        setName(res.name);
+        setAddress(res.address);
+        setPincode(res.pincode);
+        setPhone(res.phone)
     }
 
     const initializeRazorpaySDK = () => {
