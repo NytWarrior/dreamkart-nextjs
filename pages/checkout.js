@@ -80,6 +80,10 @@ const checkout = ({ cart, clearCart, subTotal, addToCart, removeFromCart }) => {
                     address: address,
                     subTotal: subTotal,
                     cart: cart,
+                    name: name,
+                    city: city,
+                    state: state,
+                    phone: phone,
                 }),
             });
 

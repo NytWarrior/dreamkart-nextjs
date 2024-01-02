@@ -32,7 +32,11 @@ export default async function handler(req, res) {
         let order = new Order({
             email: req.body.email,
             orderId: generateReceipt(),
+            name: req.body.name,
             address: req.body.address,
+            city: req.body.city,
+            state: req.body.state,
+            phone: req.body.phone,
             amount: req.body.subTotal,
             products: req.body.cart
         });
