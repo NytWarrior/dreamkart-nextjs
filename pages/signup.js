@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
-const signup = () => {
+const Signup = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -91,4 +91,4 @@ const signup = () => {
     )
 }
 
-export default signup;
+export default Signup;

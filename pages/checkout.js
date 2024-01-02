@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { AiFillMinusCircle, AiFillPlusCircle } from 'react-icons/ai';
 import { BsFillBagCheckFill } from 'react-icons/bs';
 
-const checkout = ({ cart, clearCart, subTotal, addToCart, removeFromCart }) => {
+const Checkout = ({ cart, clearCart, subTotal, addToCart, removeFromCart }) => {
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -232,4 +232,4 @@ const checkout = ({ cart, clearCart, subTotal, addToCart, removeFromCart }) => {
     )
 }
 
-export default checkout;
+export default Checkout;

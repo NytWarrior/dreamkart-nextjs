@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
-const myaccount = () => {
+const Myaccount = () => {
     const router = useRouter();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -186,4 +186,4 @@ const myaccount = () => {
     )
 }
 
-export default myaccount;
+export default Myaccount;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
-const forgot = () => {
+const Forgot = () => {
     const router = useRouter();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -115,4 +115,4 @@ const forgot = () => {
     )
 }
 
-export default forgot;
+export default Forgot;

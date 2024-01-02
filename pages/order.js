@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import mongoose from 'mongoose';
 import Order from '@/models/Order';
 
-const orderDetail = ({ order }) => {
+const OrderDetail = ({ order }) => {
     const router = useRouter();
     const products = order.products;
 
@@ -57,4 +57,4 @@ export async function getServerSideProps(context) {
     }
 }
 
-export default orderDetail;
+export default OrderDetail;

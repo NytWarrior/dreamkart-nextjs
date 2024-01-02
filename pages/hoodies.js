@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link';
 
-const hoodies = () => {
+const Hoodies = () => {
     return (
         <div>
             <section className="text-gray-600 body-font">
@@ -60,4 +60,4 @@ const hoodies = () => {
     )
 }
 
-export default hoodies;
+export default Hoodies;

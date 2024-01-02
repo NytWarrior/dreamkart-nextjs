@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
-const orders = () => {
+const Orders = () => {
     const router = useRouter();
     const [orders, setOrders] = useState([]);
 
@@ -72,4 +72,4 @@ const orders = () => {
     )
 }
 
-export default orders;
+export default Orders;

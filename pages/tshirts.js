@@ -3,7 +3,7 @@ import Link from 'next/link';
 import mongoose from 'mongoose';
 import Product from '@/models/Product';
 
-const tshirts = ({ products }) => {
+const Tshirts = ({ products }) => {
     return (
         <div>
             <section className="text-gray-600 body-font">
@@ -71,4 +71,4 @@ export async function getServerSideProps(context) {
     }
 }
 
-export default tshirts;
+export default Tshirts;
