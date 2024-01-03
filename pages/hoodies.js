@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link';
+import Image from 'next/image';
 
 const Hoodies = () => {
     return (
@@ -10,7 +11,7 @@ const Hoodies = () => {
                         {/* <Link href={'/product/wear-the-dream'}> */}
                         <div className="lg:w-1/4 md:w-1/2 p-4 w-full">
                             <a href={'/product/wear-the-dream'} className="block relative rounded overflow-hidden cursor-pointer">
-                                <img alt="ecommerce" className="object-cover object-center w-full h-full block" src="https://rukminim2.flixcart.com/image/832/832/xif0q/t-shirt/u/p/4/xxl-fc4458-fastcolors-original-imagsczcqphypzwu.jpeg?q=70" />
+                                <Image alt="ecommerce" className="object-cover object-center w-full h-full block" src="https://rukminim2.flixcart.com/image/832/832/xif0q/t-shirt/u/p/4/xxl-fc4458-fastcolors-original-imagsczcqphypzwu.jpeg?q=70" />
                             </a>
                             <div className="mt-4">
                                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">CATEGORY</h3>
@@ -22,7 +23,7 @@ const Hoodies = () => {
                         {/* </Link> */}
                         <div className="lg:w-1/4 md:w-1/2 p-4 w-full">
                             <a href={'/product/wear-the-dream'} className="block relative rounded overflow-hidden cursor-pointer">
-                                <img alt="ecommerce" className="object-cover object-center w-full h-full block" src="https://rukminim2.flixcart.com/image/832/832/xif0q/t-shirt/u/p/4/xxl-fc4458-fastcolors-original-imagsczcqphypzwu.jpeg?q=70" />
+                                <Image alt="ecommerce" className="object-cover object-center w-full h-full block" src="https://rukminim2.flixcart.com/image/832/832/xif0q/t-shirt/u/p/4/xxl-fc4458-fastcolors-original-imagsczcqphypzwu.jpeg?q=70" />
                             </a>
                             <div className="mt-4">
                                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">CATEGORY</h3>
