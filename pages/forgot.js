@@ -91,7 +91,7 @@ const Forgot = () => {
                     <div>
                         <button onClick={resetPassword} type="submit" className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Continue</button>
                     </div>
-                    {password != cpassword && <span className='text-red-600'>Passwords don't match</span>}
+                    {password != cpassword && <span className='text-red-600'>Passwords not match</span>}
                     {password && password == cpassword && <span className='text-green-600'>Passwords match</span>}
                 </div>
             </div>}
