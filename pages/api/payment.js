@@ -9,7 +9,7 @@ export default async function handler(req, res) {
         let product, sumTotal = 0;
         let cart = req.body.cart;
 
-        if (req.status.subTotal <= 0) {
+        if (req.body.subTotal <= 0) {
             res.status(500).json({ error: "Please build your cart and try again!!" })
         }
         for (let item in cart) {
@@ -38,7 +38,8 @@ export default async function handler(req, res) {
             state: req.body.state,
             phone: req.body.phone,
             amount: req.body.subTotal,
-            products: req.body.cart
+            products: req.body.cart,
+            pincode: req.body.pincode
         });
         // console.log("in payment req.body", req.body);
         await order.save();

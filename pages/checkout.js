@@ -39,6 +39,12 @@ const Checkout = ({ cart, clearCart, subTotal, addToCart, removeFromCart }) => {
         else if (e.target.name == 'pincode') {
             setPincode(e.target.value);
         }
+        else if (e.target.name == 'city') {
+            setCity(e.target.value);
+        }
+        else if (e.target.name == 'state') {
+            setState(e.target.value);
+        }
     }
 
     const fetchData = async (token) => {
@@ -103,6 +109,7 @@ const Checkout = ({ cart, clearCart, subTotal, addToCart, removeFromCart }) => {
                     city: city,
                     state: state,
                     phone: phone,
+                    pincode: pincode
                 }),
             });
 
@@ -192,13 +199,13 @@ const Checkout = ({ cart, clearCart, subTotal, addToCart, removeFromCart }) => {
                 <div className="px-2 w-1/2">
                     <div className="mb-4">
                         <label htmlFor="city" className="leading-7 text-sm text-gray-600">District</label>
-                        <input value={city} type="text" id="city" name="city" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" readOnly={true} />
+                        <input onChange={handleChange} value={city} type="text" id="city" name="city" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
                     </div>
                 </div>
                 <div className="px-2 w-1/2">
                     <div className="mb-4">
                         <label htmlFor="state" className="leading-7 text-sm text-gray-600">State</label>
-                        <input value={state} type="text" id="state" name="state" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" readOnly={true} />
+                        <input onChange={handleChange} value={state} type="text" id="state" name="state" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
                     </div>
                 </div>
             </div>
