@@ -3,6 +3,11 @@ import Head from 'next/head';
 import Image from 'next/image';
 
 const inter = Inter({ subsets: ['latin'] })
+const stats = [
+  { id: 1, name: 'Transactions every 24 hours', value: '10K' },
+  { id: 2, name: 'Active Users', value: '1+ million' },
+  { id: 3, name: 'New users annually', value: '5K+' },
+]
 
 export default function Home() {
   return (
@@ -12,8 +17,96 @@ export default function Home() {
         <meta name='description' content='DreamKart - Live the dream!!' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <div className=''>
-        <img src='/2.jpg' alt='' />
+
+      <div className="relative overflow-hidden bg-white">
+        <div className="pb-80 pt-16 sm:pb-40 sm:pt-24 lg:pb-48 lg:pt-40">
+          <div className="relative mx-auto max-w-7xl px-4 sm:static sm:px-6 lg:px-8">
+            <div className="sm:max-w-lg">
+              <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+                Summer styles are finally here
+              </h1>
+              <p className="mt-4 text-xl text-gray-500">
+                This year, our newest summer collection is crafted to bring your dreams to life!
+              </p>
+            </div>
+            <div>
+              <div className="mt-10">
+                {/* Decorative image grid */}
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none lg:absolute lg:inset-y-0 lg:mx-auto lg:w-full lg:max-w-7xl"
+                >
+                  <div className="absolute transform sm:left-1/2 sm:top-0 sm:translate-x-8 lg:left-1/2 lg:top-1/2 lg:-translate-y-1/2 lg:translate-x-8">
+                    <div className="flex items-center space-x-6 lg:space-x-8">
+                      <div className="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
+                        <div className="h-64 w-44 overflow-hidden rounded-lg sm:opacity-0 lg:opacity-100">
+                          <img
+                            src="https:tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-01.jpg"
+                            alt=""
+                            className="h-full w-full object-cover object-center"
+                          />
+                        </div>
+                        <div className="h-64 w-44 overflow-hidden rounded-lg">
+                          <img
+                            src="https:tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-02.jpg"
+                            alt=""
+                            className="h-full w-full object-cover object-center"
+                          />
+                        </div>
+                      </div>
+                      <div className="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
+                        <div className="h-64 w-44 overflow-hidden rounded-lg">
+                          <img
+                            src="https:tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-03.jpg"
+                            alt=""
+                            className="h-full w-full object-cover object-center"
+                          />
+                        </div>
+                        <div className="h-64 w-44 overflow-hidden rounded-lg">
+                          <img
+                            src="https:tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-04.jpg"
+                            alt=""
+                            className="h-full w-full object-cover object-center"
+                          />
+                        </div>
+                        <div className="h-64 w-44 overflow-hidden rounded-lg">
+                          <img
+                            src="https:tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-05.jpg"
+                            alt=""
+                            className="h-full w-full object-cover object-center"
+                          />
+                        </div>
+                      </div>
+                      <div className="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
+                        <div className="h-64 w-44 overflow-hidden rounded-lg">
+                          <img
+                            src="https:tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-06.jpg"
+                            alt=""
+                            className="h-full w-full object-cover object-center"
+                          />
+                        </div>
+                        <div className="h-64 w-44 overflow-hidden rounded-lg">
+                          <img
+                            src="https:tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-07.jpg"
+                            alt=""
+                            className="h-full w-full object-cover object-center"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* <a
+                href="#"
+                className="inline-block rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-center font-medium text-white hover:bg-indigo-700"
+              >
+                Shop Collection
+              </a> */}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <section className="text-gray-600 body-font">
         <div className="container px-5 py-24 mx-auto">
@@ -92,9 +185,23 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <button className="flex mx-auto mt-16 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Button</button>
+          {/* <button className="flex mx-auto mt-16 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Button</button> */}
         </div>
       </section>
+      <div className="bg-white py-24 sm:py-32">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <dl className="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-3">
+            {stats.map((stat) => (
+              <div key={stat.id} className="mx-auto flex max-w-xs flex-col gap-y-4">
+                <dt className="text-base leading-7 text-gray-600">{stat.name}</dt>
+                <dd className="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
+                  {stat.value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </div>
     </div>
   )
 }
